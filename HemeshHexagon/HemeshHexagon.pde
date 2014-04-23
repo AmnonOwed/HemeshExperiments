@@ -1,6 +1,6 @@
 
 // HemeshHexagon example by Amnon Owed (23.04.2014)
-// (for disussion purposes, not optimized for speed)
+// (for discussion purposes, not optimized for speed)
 // Dependencies: Processing 2.1.2, HE_Mesh 1.8.2 & Peasycam v2.00
 
 import peasy.*;
