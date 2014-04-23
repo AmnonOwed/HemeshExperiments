@@ -1,4 +1,5 @@
-HemeshExperiments
-=================
+Processing + Hemesh Experiments
+===============================
 
-Coding experiments with the Hemesh library
+####HemeshHexagon
+Creating Hexagons with Hemesh and extruding them
