@@ -1,17 +1,17 @@
 
 static class HexagonGrid {
 
-  static HE_Mesh createHemesh(float startX, float startY, float hexagonRadius, int numLevels) {
-    float xOff = cos(PI/6) * hexagonRadius;
-    float yOff = sin(PI/6) * hexagonRadius;    
+  static HE_Mesh createHemesh(double startX, double startY, double hexagonRadius, int numLevels) {
+    double xOff = Math.cos(Math.PI/6) * hexagonRadius;
+    double yOff = Math.sin(Math.PI/6) * hexagonRadius;    
 
-    ArrayList <PVector> centerPoints = new ArrayList <PVector> ();
-    centerPoints.add(new PVector(startX, startY));
+    ArrayList <WB_Point> centerPoints = new ArrayList <WB_Point> ();
+    centerPoints.add(new WB_Point(startX, startY));
     int previousSize = 0;
     for (int j=0; j<numLevels; j++) {
       int temp = centerPoints.size();
       for (int i=centerPoints.size()-1; i>=previousSize; i--) {
-        PVector p = centerPoints.get(i);
+        WB_Point p = centerPoints.get(i);
         addPoint(centerPoints, p.x + xOff*2, p.y);
         addPoint(centerPoints, p.x + xOff, p.y + yOff*3);
         addPoint(centerPoints, p.x - xOff, p.y + yOff*3);
@@ -22,16 +22,16 @@ static class HexagonGrid {
       previousSize = temp;
     }
 
-    float[][] hexagonCoordinates = new float[6][2];
+    double[][] hexagonCoordinates = new double[6][2];
     for (int i=0; i<6; i++) {
-      float angle = PI / 3 * (i + 0.5);
-      hexagonCoordinates[i][0] = cos(angle) * hexagonRadius;
-      hexagonCoordinates[i][1] = sin(angle) * hexagonRadius;
+      double angle = Math.PI / 3 * (i + 0.5);
+      hexagonCoordinates[i][0] = Math.cos(angle) * hexagonRadius;
+      hexagonCoordinates[i][1] = Math.sin(angle) * hexagonRadius;
     }
 
-    float[][] vertices = new float[centerPoints.size()*6][3];
+    double[][] vertices = new double[centerPoints.size()*6][3];
     for (int i=0; i<centerPoints.size(); i++) {
-      PVector cp = centerPoints.get(i);
+      WB_Point cp = centerPoints.get(i);
       for (int j=0; j<6; j++) {
         int index = i*6+j;
         vertices[index][0] = cp.x + hexagonCoordinates[j][0];
@@ -55,9 +55,10 @@ static class HexagonGrid {
     return new HE_Mesh(creator);
   }
 
-  static void addPoint(ArrayList <PVector> points, float x, float y) {
-    for (PVector p : points) if (round(x)==round(p.x)&&round(y)==round(p.y)) return;
-    points.add(new PVector(x, y));
+  static void addPoint(ArrayList <WB_Point> points, double x, double y) {
+    for (WB_Point p : points) if (round((float)x)==round(p.xf())&&round((float)y)==round(p.yf())) return;
+    points.add(new WB_Point(x, y));
   }
+  
 }
 
