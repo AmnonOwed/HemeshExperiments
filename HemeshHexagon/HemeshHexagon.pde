@@ -16,15 +16,16 @@ HE_Mesh mesh;
 
 boolean bDrawFaces = true;
 boolean bDrawEdges = true;
-boolean bDrawFaceNormals = true;
+boolean bDrawFaceNormals = false;
 
 void setup() {
   size(1024, 512, P3D);
   smooth(16);
-  cam = new PeasyCam(this, 600);
+  cam = new PeasyCam(this, 300);
   render = new WB_Render(this);
-  mesh = HexagonGrid.createHemesh(0, 0, 5, 30);
-  HEM_Extrude extrude = new HEM_Extrude().setDistance(25);
+  mesh = HexagonGrid.createHemesh(0, 0, 10, 15);
+  HEM_Extrude extrude = new HEM_Extrude();
+  extrude.setRelative(true).setChamfer(0.25).setDistance(25);
   mesh.modify(extrude);
 }
 
