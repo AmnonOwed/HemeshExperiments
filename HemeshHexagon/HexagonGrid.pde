@@ -6,20 +6,11 @@ static class HexagonGrid {
     double yOff = Math.sin(Math.PI/6) * hexagonRadius;    
 
     ArrayList <WB_Point> centerPoints = new ArrayList <WB_Point> ();
-    centerPoints.add(new WB_Point(startX, startY));
-    int previousSize = 0;
-    for (int j=0; j<numLevels; j++) {
-      int temp = centerPoints.size();
-      for (int i=centerPoints.size()-1; i>=previousSize; i--) {
-        WB_Point p = centerPoints.get(i);
-        addPoint(centerPoints, p.x + xOff*2, p.y);
-        addPoint(centerPoints, p.x + xOff, p.y + yOff*3);
-        addPoint(centerPoints, p.x - xOff, p.y + yOff*3);
-        addPoint(centerPoints, p.x - xOff*2, p.y);
-        addPoint(centerPoints, p.x - xOff, p.y - yOff*3);
-        addPoint(centerPoints, p.x + xOff, p.y - yOff*3);
+    for (int y=-numLevels; y<=numLevels; y++) {
+      int aY = abs(y);
+      for (int x=-numLevels; x<=numLevels - aY; x++) {
+        centerPoints.add(new WB_Point((2 * x + aY ) * xOff, 3 * y * yOff));
       }
-      previousSize = temp;
     }
 
     double[][] hexagonCoordinates = new double[6][2];
@@ -55,10 +46,5 @@ static class HexagonGrid {
     return new HE_Mesh(creator);
   }
 
-  static void addPoint(ArrayList <WB_Point> points, double x, double y) {
-    for (WB_Point p : points) if (round((float)x)==round(p.xf())&&round((float)y)==round(p.yf())) return;
-    points.add(new WB_Point(x, y));
-  }
-  
 }
 
