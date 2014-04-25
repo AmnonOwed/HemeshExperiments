@@ -9,7 +9,7 @@ static class HexagonGrid {
     for (int y=-numLevels; y<=numLevels; y++) {
       int aY = abs(y);
       for (int x=-numLevels; x<=numLevels - aY; x++) {
-        centerPoints.add(new WB_Point((2 * x + aY ) * xOff, 3 * y * yOff));
+        centerPoints.add(new WB_Point(startX + (2 * x + aY) * xOff, startY + 3 * y * yOff));
       }
     }
 
